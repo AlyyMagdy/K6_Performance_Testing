@@ -28,14 +28,10 @@ export let options = {
     },
 };
 
-// Step Definitions
-// "Given" Step: Setting the URL and Payload for Login
-// const BASE_URL = 'https://parabank.parasoft.com/parabank/login.htm';
 const BASE_URL = 'https://reqres.in/api/users?page=2';
 
 
 
-// "When" Step: Load Test Scenario
 export function loadTest() {
     group('Scenario: Load Testing Running with 100 Virtual User', () => {
 
@@ -48,7 +44,7 @@ export function loadTest() {
     sleep(1);
 });
 }
-// "When" Step: Stress Test Scenario
+
 export function stressTest() {
     group('Scenario: Load Testing Running with 150+ Virtual User', () => {
     let res = http.get(BASE_URL);
