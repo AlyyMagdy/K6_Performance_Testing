@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { check, sleep } from 'k6';
+import { check, sleep,group } from 'k6';
 import { Scenario } from 'k6/execution';
 
 // Scenario 1: Load Testing for 100 users
@@ -30,33 +30,33 @@ export let options = {
 
 // Step Definitions
 // "Given" Step: Setting the URL and Payload for Login
-const BASE_URL = 'https://parabank.parasoft.com/parabank/login.htm';
-const payload = {
-    username: 'TestUser',
-    password: 'Welcome@01',
-};
-const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+// const BASE_URL = 'https://parabank.parasoft.com/parabank/login.htm';
+const BASE_URL = 'https://reqres.in/api/users?page=2';
+
+
 
 // "When" Step: Load Test Scenario
 export function loadTest() {
-    let res = http.post(BASE_URL, payload, { headers: headers });
+    group('Scenario: Load Testing Running with 100 Virtual User', () => {
 
+    let res = http.get(BASE_URL);
     // "Then" Step: Assertions for Load Testing
     check(res, {
         'status is 200': (r) => r.status === 200,
         'transaction time < 500ms': (r) => r.timings.duration < 500,
     });
     sleep(1);
+});
 }
-
 // "When" Step: Stress Test Scenario
 export function stressTest() {
-    let res = http.post(BASE_URL, payload, { headers: headers });
-
+    group('Scenario: Load Testing Running with 150+ Virtual User', () => {
+    let res = http.get(BASE_URL);
     // "Then" Step: Assertions for Stress Testing
     check(res, {
         'status is 200': (r) => r.status === 200,
         'response time acceptable': (r) => r.timings.duration < 1000,
     });
     sleep(1);
+});
 }
