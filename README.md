@@ -1,9 +1,9 @@
 # K6_Performance_Testing
 
 ## Installation
-
-1- Download Docker : https://www.docker.com/products/docker-desktop/
-
+```
+Download Docker : https://www.docker.com/products/docker-desktop/
+```
 ## Running
 
 ```bash
